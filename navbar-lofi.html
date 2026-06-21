@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navigation Bar — Lo-Fi Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e8e8e8;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#222}
+
+  /* ── Utility strip ── */
+  .utility-strip{background:#222;color:rgba(255,255,255,.6);font-size:12px;letter-spacing:.02em}
+  .utility-strip-inner{max-width:1380px;margin:0 auto;height:38px;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+  .placeholder-bar{background:rgba(255,255,255,.2);border-radius:3px;height:8px}
+  .utility-actions{display:flex;align-items:center;gap:10px}
+  .utility-sep{width:1px;height:16px;background:rgba(255,255,255,.2)}
+  .login-link-top{text-decoration:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);white-space:nowrap;transition:color .12s}
+  .login-link-top:hover{color:#fff}
+  .cta-btn-top{text-decoration:none;font-size:11px;font-weight:600;color:#222;background:rgba(255,255,255,.85);padding:5px 12px;border-radius:5px;white-space:nowrap;transition:background .12s}
+  .cta-btn-top:hover{background:#fff}
+
+  /* ── Navbar ── */
+  .navbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:2px solid #222}
+  .navbar-inner{position:relative;max-width:1380px;margin:0 auto}
+  .navbar-row{height:80px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+
+  /* logo placeholder */
+  .logo-placeholder{display:flex;align-items:center;gap:10px;flex:none}
+  .logo-box{width:40px;height:40px;border-radius:8px;background:#ccc;border:2px dashed #999}
+  .logo-lines{display:flex;flex-direction:column;gap:5px}
+  .logo-line-1{width:90px;height:9px;background:#bbb;border-radius:3px}
+  .logo-line-2{width:60px;height:6px;background:#d5d5d5;border-radius:2px}
+
+  /* nav links */
+  .primary-nav{display:flex;align-items:center;gap:2px}
+  .nav-btn,.nav-link{display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;color:#444;padding:8px 10px;border-radius:6px;white-space:nowrap;text-decoration:none;transition:background .12s}
+  .nav-btn:hover,.nav-link:hover{background:rgba(0,0,0,.06)}
+  .nav-btn .arrow{font-size:7px;color:#888}
+  .nav-sep{width:1px;height:20px;background:#ccc;margin:0 6px}
+  .corp-btn{font-weight:700;color:#222;border:1.5px solid #222;border-radius:6px;padding:7px 10px}
+  .corp-btn:hover{background:rgba(0,0,0,.06)}
+
+  /* actions */
+  .actions{display:flex;align-items:center;gap:10px;flex:none}
+  .social-icon{display:flex;color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s}
+  .social-icon:hover{color:#fff}
+
+  /* nav pushed right */
+  .primary-nav{margin-left:auto}
+
+  /* ── Dropdowns ── */
+  .dropdown{position:absolute;top:100%;background:#fff;border:2px solid #222;border-radius:12px;box-shadow:0 16px 40px -14px rgba(0,0,0,.25);padding:20px;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .15s,transform .15s,visibility .15s}
+  .dropdown.open{opacity:1;visibility:visible;transform:translateY(0)}
+  .dd-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#888;padding:0 8px 10px}
+  .dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .dd-item{display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:8px;text-decoration:none;transition:background .12s}
+  .dd-item:hover{background:rgba(0,0,0,.04)}
+  .dd-dot{width:6px;height:6px;border-radius:50%;background:#999;flex:none}
+  .dd-bar{height:8px;border-radius:3px;background:#ccc}
+  .dd-footer{border-top:1.5px solid #e0e0e0;margin-top:10px;padding-top:10px}
+  .dd-footer-bar{height:8px;width:100px;background:#999;border-radius:3px;margin-left:8px}
+
+  /* services */
+  .dropdown-services{width:480px}
+  /* about */
+  .dropdown-about{width:220px;padding:14px}
+  /* corp */
+  .dropdown-corp{width:300px;background:#222;border-color:#222}
+  .dropdown-corp .dd-label{color:#777}
+  .dropdown-corp .dd-sublabel{font-size:11px;color:rgba(255,255,255,.4);padding:0 8px 10px}
+  .dropdown-corp .dd-item:hover{background:rgba(255,255,255,.08)}
+  .dropdown-corp .dd-dot{background:#777}
+  .dropdown-corp .dd-bar{background:#555}
+  .dropdown-corp .dd-footer{border-color:rgba(255,255,255,.15);margin-top:8px}
+  .dropdown-corp .dd-footer-bar{background:#777}
+
+  /* ── Page body placeholder ── */
+  .page-body{max-width:1380px;margin:0 auto;padding:60px 32px 100px}
+  .body-block{background:#ddd;border-radius:12px;height:220px;margin-bottom:20px;border:2px dashed #bbb;display:flex;align-items:center;justify-content:center}
+  .body-block span{font-size:13px;font-weight:600;color:#999;letter-spacing:.06em;text-transform:uppercase}
+  .body-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+  .body-cols .body-block{height:160px}
+
+  /* ── Annotation labels ── */
+  .annotation{position:absolute;font-size:10px;font-weight:600;color:#888;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;pointer-events:none}
+  .annotation::before{content:'';position:absolute;background:#aaa;border-radius:1px}
+  .ann-logo{top:-20px;left:0}.ann-logo::before{display:none}
+  .ann-nav{top:-20px;left:50%;transform:translateX(-50%)}.ann-nav::before{display:none}
+  .ann-cta{top:-20px;right:0}.ann-cta::before{display:none}
+
+  @media(max-width:960px){
+    .primary-nav{display:none}
+    .body-cols{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:600px){
+    .body-cols{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- Utility strip -->
+<div class="utility-strip">
+  <div class="utility-strip-inner">
+    <div class="placeholder-bar" style="width:200px"></div>
+    <div class="utility-actions">
+      <a href="#" aria-label="Instagram" class="social-icon">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+      </a>
+      <a href="#" aria-label="Facebook" class="social-icon">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M13.5 21v-7.9h2.62l.39-3.05h-3V8.1c0-.88.25-1.48 1.51-1.48h1.61V3.9c-.28-.04-1.24-.12-2.36-.12-2.33 0-3.93 1.42-3.93 4.04v2.26H7.7v3.05h2.25V21h3.55z"></path></svg>
+      </a>
+      <span class="utility-sep"></span>
+      <a href="#" class="login-link-top">Client Login</a>
+      <a href="#" class="cta-btn-top">Connect With an Advisor</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<div class="navbar">
+  <div class="navbar-inner" id="navbarInner">
+    <div class="navbar-row">
+
+      <!-- logo placeholder -->
+      <div class="logo-placeholder">
+        <div class="logo-box"></div>
+        <div class="logo-lines">
+          <div class="logo-line-1"></div>
+          <div class="logo-line-2"></div>
+        </div>
+      </div>
+
+      <!-- primary links — pushed right -->
+      <nav class="primary-nav">
+        <button class="nav-btn" data-dropdown="services">Services<span class="arrow">&#9660;</span></button>
+        <button class="nav-btn" data-dropdown="about">About<span class="arrow">&#9660;</span></button>
+        <a href="#" class="nav-link" data-close-dropdown>Team</a>
+        <a href="#" class="nav-link" data-close-dropdown>Insights</a>
+        <a href="#" class="nav-link" data-close-dropdown>Events</a>
+        <span class="nav-sep"></span>
+        <button class="nav-btn corp-btn" data-dropdown="corp">Corporate Advantage<span class="arrow">&#9660;</span></button>
+      </nav>
+    </div>
+
+    <!-- Dropdown: Services -->
+    <div class="dropdown dropdown-services" id="dropdown-services">
+      <div class="dd-label">Wealth Services</div>
+      <div class="dd-grid" id="servicesGrid"></div>
+      <div class="dd-footer"><div class="dd-footer-bar"></div></div>
+    </div>
+
+    <!-- Dropdown: About -->
+    <div class="dropdown dropdown-about" id="dropdown-about"></div>
+
+    <!-- Dropdown: Corporate Advantage -->
+    <div class="dropdown dropdown-corp" id="dropdown-corp">
+      <div class="dd-label">For Employers</div>
+      <div class="dd-sublabel">B2B offering</div>
+      <div id="corpGrid"></div>
+      <div class="dd-footer"><div class="dd-footer-bar"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== Page body placeholders ===================== -->
+<div class="page-body">
+  <div class="body-block" style="height:320px"><span>Hero section</span></div>
+  <div class="body-block" style="height:140px"><span>Trust bar</span></div>
+  <div class="body-cols">
+    <div class="body-block"><span>Card</span></div>
+    <div class="body-block"><span>Card</span></div>
+    <div class="body-block"><span>Card</span></div>
+  </div>
+  <div class="body-block" style="height:180px"><span>Content section</span></div>
+  <div class="body-block" style="height:100px"><span>CTA banner</span></div>
+  <div class="body-block" style="height:80px;background:#333;border:none"><span style="color:#777">Footer</span></div>
+</div>
+
+<script>
+(function () {
+  const services = 5;
+  const about = 3;
+  const corp = 4;
+
+  function buildPlaceholder(width) {
+    return '<a href="#" class="dd-item"><span class="dd-dot"></span><span class="dd-bar" style="width:' + width + 'px"></span></a>';
+  }
+
+  const widths = [130, 110, 100, 145, 115];
+  document.getElementById('servicesGrid').innerHTML = widths.map(buildPlaceholder).join('');
+
+  const aboutWidths = [80, 75, 95];
+  document.getElementById('dropdown-about').innerHTML = aboutWidths.map(buildPlaceholder).join('');
+
+  const corpWidths = [70, 120, 105, 110];
+  document.getElementById('corpGrid').innerHTML = corpWidths.map(buildPlaceholder).join('');
+
+  // Dropdown logic
+  let openId = null;
+  const dropdowns = document.querySelectorAll('.dropdown');
+
+  function closeAll() {
+    openId = null;
+    dropdowns.forEach(d => d.classList.remove('open'));
+  }
+
+  function openDropdown(id, triggerBtn) {
+    if (openId === id) return;
+    closeAll();
+    openId = id;
+    const el = document.getElementById('dropdown-' + id);
+    if (!el) return;
+
+    const navInner = document.getElementById('navbarInner');
+    const navRect = navInner.getBoundingClientRect();
+    const btnRect = triggerBtn.getBoundingClientRect();
+    const btnLeft = btnRect.left - navRect.left;
+
+    el.style.left = btnLeft + 'px';
+    el.style.right = 'auto';
+
+    const elWidth = el.offsetWidth;
+    if (btnLeft + elWidth > navRect.width) {
+      el.style.left = 'auto';
+      el.style.right = '0px';
+    }
+
+    el.classList.add('open');
+  }
+
+  document.querySelectorAll('[data-dropdown]').forEach(btn => {
+    btn.addEventListener('mouseenter', () => openDropdown(btn.dataset.dropdown, btn));
+  });
+  document.querySelectorAll('[data-close-dropdown]').forEach(el => {
+    el.addEventListener('mouseenter', closeAll);
+  });
+  document.getElementById('navbarInner').addEventListener('mouseleave', closeAll);
+})();
+</script>
+<a href="index-hub.html" class="back-btn">← Hub</a>
+<style>.back-btn{position:fixed;bottom:20px;left:20px;z-index:999;text-decoration:none;font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:13px;font-weight:600;color:#fff;background:#222;padding:8px 16px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:background .15s}.back-btn:hover{background:#555}</style>
+</body>
+</html>

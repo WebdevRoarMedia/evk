@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evensky &amp; Katz — Visual Sitemap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#f4f1ea;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#1b2a41;min-height:100vh;overflow-x:hidden;overflow-y:auto}
+
+  .sitemap-header{text-align:center;padding:48px 32px 0}
+
+  .scroll-container{overflow-x:auto;overflow-y:visible}
+  .sitemap-header .tag{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c79a52}
+  .sitemap-header h1{font-family:'Newsreader',serif;font-weight:500;font-size:42px;letter-spacing:-.02em;color:#1b2a41;margin:10px 0 0}
+  .sitemap-header p{font-size:14px;color:rgba(27,42,65,.55);margin:10px 0 0}
+
+  .tree-wrap{position:relative;padding:40px 40px 80px;width:fit-content;margin:0 auto}
+  svg.connectors{position:absolute;top:0;left:0;pointer-events:none;z-index:0}
+
+  /* ── Nodes ── */
+  .root{display:flex;justify-content:center;margin-bottom:0;position:relative;z-index:1}
+  .root-box{background:#1b2a41;color:#c79a52;font-family:'Newsreader',serif;font-size:22px;font-weight:500;letter-spacing:-.02em;padding:14px 30px;border-radius:14px;text-align:center;line-height:1.2;box-shadow:0 4px 16px rgba(27,42,65,.18)}
+  .root-box small{display:block;font-family:'Hanken Grotesk',sans-serif;font-size:8px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:4px}
+
+  .branches{display:flex;justify-content:center;gap:0;align-items:flex-start;position:relative;z-index:1;margin-top:56px}
+
+  .branch{display:flex;flex-direction:column;align-items:center;min-width:170px;padding:0 10px}
+
+  .branch-head{padding:8px 16px;border-radius:10px;font-size:13px;font-weight:700;text-align:center;white-space:nowrap;border:2.5px solid;position:relative;background:#fffdf9}
+
+  .branch-body{display:flex;flex-direction:column;align-items:flex-start;margin-top:28px;position:relative;padding-left:20px}
+
+  .page-node{border:1.8px dashed;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;margin:6px 0;white-space:nowrap;background:#fffdf9;position:relative}
+
+  .section-leaf{font-size:11.5px;font-weight:500;color:rgba(27,42,65,.72);padding:3px 0;margin:2px 0;white-space:nowrap;position:relative;padding-left:18px}
+  .section-leaf::before{content:'';position:absolute;left:0;top:50%;width:12px;height:1.5px}
+
+  .sub-branch{margin-top:6px;margin-left:16px;padding-left:16px;position:relative}
+  .sub-branch::before{content:'';position:absolute;left:0;top:0;bottom:12px;width:1.5px}
+
+  .sub-item{font-size:11.5px;font-weight:500;color:rgba(27,42,65,.72);padding:4px 0;position:relative;padding-left:18px;white-space:nowrap}
+  .sub-item::before{content:'';position:absolute;left:0;top:50%;width:12px;height:1.5px}
+
+  .external-note{margin-top:8px;padding:10px 12px;background:rgba(27,42,65,.03);border:1.5px dashed rgba(27,42,65,.22);border-radius:8px;font-size:11px;line-height:1.45;color:rgba(27,42,65,.55);max-width:150px;white-space:normal}
+
+  .b2b-badge{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.08em;background:#c79a52;color:#fffdf9;padding:2px 6px;border-radius:10px;margin-left:6px;vertical-align:middle}
+
+  /* ── Vertical trunk line per branch ── */
+  .trunk{position:absolute;left:0;top:0;bottom:0;width:1.5px}
+
+  /* ── Color themes ── */
+  .c-red    .branch-head{border-color:#e06b5e;color:#c0473a}
+  .c-red    .page-node{border-color:#e06b5e;color:#c0473a}
+  .c-red    .section-leaf::before{background:#e06b5e}
+  .c-red    .trunk,.c-red .sub-branch::before{background:#e06b5e}
+  .c-red    .sub-item::before{background:#e06b5e}
+
+  .c-orange .branch-head{border-color:#e8a04c;color:#b87a24}
+  .c-orange .page-node{border-color:#e8a04c;color:#b87a24}
+  .c-orange .section-leaf::before{background:#e8a04c}
+  .c-orange .trunk,.c-orange .sub-branch::before{background:#e8a04c}
+  .c-orange .sub-item::before{background:#e8a04c}
+
+  .c-gold   .branch-head{border-color:#c79a52;color:#9e7530}
+  .c-gold   .page-node{border-color:#c79a52;color:#9e7530}
+  .c-gold   .section-leaf::before{background:#c79a52}
+  .c-gold   .trunk,.c-gold .sub-branch::before{background:#c79a52}
+  .c-gold   .sub-item::before{background:#c79a52}
+
+  .c-green  .branch-head{border-color:#5da87a;color:#3d7a55}
+  .c-green  .page-node{border-color:#5da87a;color:#3d7a55}
+  .c-green  .section-leaf::before{background:#5da87a}
+  .c-green  .trunk,.c-green .sub-branch::before{background:#5da87a}
+  .c-green  .sub-item::before{background:#5da87a}
+
+  .c-teal   .branch-head{border-color:#4a9ea8;color:#2e7a83}
+  .c-teal   .page-node{border-color:#4a9ea8;color:#2e7a83}
+  .c-teal   .section-leaf::before{background:#4a9ea8}
+  .c-teal   .trunk,.c-teal .sub-branch::before{background:#4a9ea8}
+  .c-teal   .sub-item::before{background:#4a9ea8}
+
+  .c-blue   .branch-head{border-color:#5b82c7;color:#3b5fa0}
+  .c-blue   .page-node{border-color:#5b82c7;color:#3b5fa0}
+  .c-blue   .section-leaf::before{background:#5b82c7}
+  .c-blue   .trunk,.c-blue .sub-branch::before{background:#5b82c7}
+  .c-blue   .sub-item::before{background:#5b82c7}
+
+  .c-navy   .branch-head{border-color:#1b2a41;color:#1b2a41;background:rgba(27,42,65,.06)}
+  .c-navy   .page-node{border-color:#1b2a41;color:#1b2a41}
+  .c-navy   .section-leaf::before{background:#1b2a41}
+  .c-navy   .trunk,.c-navy .sub-branch::before{background:#1b2a41}
+  .c-navy   .sub-item::before{background:#1b2a41}
+
+  .c-purple .branch-head{border-color:#8b6fbf;color:#6b4fa0}
+  .c-purple .page-node{border-color:#8b6fbf;color:#6b4fa0}
+  .c-purple .section-leaf::before{background:#8b6fbf}
+  .c-purple .trunk,.c-purple .sub-branch::before{background:#8b6fbf}
+  .c-purple .sub-item::before{background:#8b6fbf}
+
+  .c-gray   .branch-head{border-color:#999;color:#666}
+  .c-gray   .page-node{border-color:#999;color:#666}
+  .c-gray   .section-leaf::before{background:#999}
+  .c-gray   .trunk,.c-gray .sub-branch::before{background:#999}
+  .c-gray   .sub-item::before{background:#999}
+
+  /* ── Legend ── */
+  .legend{display:flex;justify-content:center;gap:28px;margin:32px 0 0;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(27,42,65,.5)}
+  .legend-item{display:flex;align-items:center;gap:8px}
+  .legend-swatch{width:28px;height:16px;border-radius:5px;border:2px solid}
+  .legend-swatch.solid{background:#fffdf9}
+  .legend-swatch.dashed{background:#fffdf9;border-style:dashed}
+  .legend-swatch.filled{background:#1b2a41;border-color:#1b2a41}
+</style>
+</head>
+<body>
+
+<div class="sitemap-header">
+  <div class="tag">Information Architecture</div>
+  <h1>Visual Sitemap</h1>
+  <p>EVK Wealth Management — full page tree</p>
+  <div class="legend">
+    <span class="legend-item"><span class="legend-swatch solid" style="border-color:#5b82c7"></span>Hub / Primary page</span>
+    <span class="legend-item"><span class="legend-swatch dashed" style="border-color:#5b82c7"></span>Sub-page / Template</span>
+    <span class="legend-item"><span class="legend-swatch filled"></span>Root</span>
+  </div>
+</div>
+
+<div class="scroll-container" id="scrollContainer">
+<div class="tree-wrap" id="treeWrap">
+  <svg class="connectors" id="connectorsSvg"></svg>
+
+  <!-- Root -->
+  <div class="root" id="root">
+    <div class="root-box">EVK<small>Wealth Management</small></div>
+  </div>
+
+  <!-- Branches -->
+  <div class="branches" id="branches">
+
+    <!-- 1 · Home -->
+    <div class="branch c-red" data-branch>
+      <div class="branch-head" data-head>Home</div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="page-node">Homepage</div>
+        <div class="section-leaf">Hero</div>
+        <div class="section-leaf">Trust bar / By the numbers</div>
+        <div class="section-leaf">Services overview</div>
+        <div class="section-leaf">Why Evensky / Differentiators</div>
+        <div class="section-leaf">Our story teaser</div>
+        <div class="section-leaf">Team teaser</div>
+        <div class="section-leaf">Insights teaser</div>
+        <div class="section-leaf">Testimonials / Press</div>
+        <div class="section-leaf">Community impact callout</div>
+        <div class="section-leaf">Newsletter signup</div>
+        <div class="section-leaf">Contact / CTA banner</div>
+        <div class="section-leaf">Footer</div>
+      </div>
+    </div>
+
+    <!-- 2 · Services -->
+    <div class="branch c-orange" data-branch>
+      <div class="branch-head" data-head>Services</div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="page-node">Services Page</div>
+        <div class="section-leaf">Hero</div>
+        <div class="section-leaf">Services grid</div>
+        <div class="section-leaf">Our process</div>
+        <div class="section-leaf">Who we serve</div>
+        <div class="section-leaf">CTA banner</div>
+        <div class="sub-branch">
+          <div class="page-node">Service Detail Template</div>
+          <div class="sub-item">Hero</div>
+          <div class="sub-item">Overview</div>
+          <div class="sub-item">What's included</div>
+          <div class="sub-item">Related insights</div>
+          <div class="sub-item">Advisor spotlight</div>
+          <div class="sub-item">CTA banner</div>
+          <div class="page-node">Investment Management</div>
+          <div class="page-node">Retirement Planning</div>
+          <div class="page-node">Education Funding</div>
+          <div class="page-node">Business Transition Planning</div>
+          <div class="page-node">Philanthropy &amp; Giving</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 · About -->
+    <div class="branch c-gold" data-branch>
+      <div class="branch-head" data-head>About</div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="page-node">About Page</div>
+        <div class="section-leaf">Hero</div>
+        <div class="section-leaf">Our story</div>
+        <div class="section-leaf">Leadership</div>
+        <div class="section-leaf">Our values</div>
+        <div class="section-leaf">Credentials / stats</div>
+        <div class="section-leaf">Community impact</div>
+        <div class="section-leaf">CTA banner</div>
+        <div class="sub-branch">
+          <div class="page-node">Our Story</div>
+          <div class="page-node">Our Values</div>
+          <div class="page-node">Community Impact</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 · Team -->
+    <div class="branch c-green" data-branch>
+      <div class="branch-head" data-head>Team</div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="page-node">Team Page</div>
+        <div class="section-leaf">Hero</div>
+        <div class="section-leaf">Filter bar</div>
+        <div class="section-leaf">Team grid</div>
+        <div class="sub-branch">
+          <div class="page-node">Advisor Profile</div>
+          <div class="sub-item">Header</div>
+          <div class="sub-item">Bio</div>
+          <div class="sub-item">Optional video intro</div>
+          <div class="sub-item">Contact CTA</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 · Insights -->
+    <div class="branch c-teal" data-branch>
+      <div class="branch-head" data-head>Insights</div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="page-node">Insights Page</div>
+        <div class="section-leaf">Header</div>
+        <div class="section-leaf">Topic filter bar</div>
+        <div class="section-leaf">Featured article</div>
+        <div class="section-leaf">Article grid</div>
+        <div class="section-leaf">Newsletter signup</div>
+        <div class="section-leaf">Pagination</div>
+        <div class="sub-branch">
+          <div class="page-node">Article Detail</div>
+          <div class="sub-item">Header</div>
+          <div class="sub-item">Body</div>
+          <div class="sub-item">Author bio card</div>
+          <div class="sub-item">Related articles</div>
+          <div class="sub-item">CTA banner</div>
+          <div class="sub-item">Newsletter signup</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 · Events -->
+    <div class="branch c-blue" data-branch>
+      <div class="branch-head" data-head>Events</div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="page-node">Events Page</div>
+        <div class="section-leaf">Hero</div>
+        <div class="section-leaf">Upcoming events</div>
+        <div class="section-leaf">Past events / recordings</div>
+        <div class="section-leaf">CTA banner</div>
+        <div class="sub-branch">
+          <div class="page-node">Event Detail</div>
+          <div class="sub-item">Header</div>
+          <div class="sub-item">Description</div>
+          <div class="sub-item">Speaker(s)</div>
+          <div class="sub-item">Registration</div>
+          <div class="sub-item">Map embed (if in-person)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 · Corporate Advantage -->
+    <div class="branch c-navy" data-branch>
+      <div class="branch-head" data-head>Corporate Advantage<span class="b2b-badge">B2B</span></div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="page-node">Corp. Advantage Page</div>
+        <div class="section-leaf">Hero</div>
+        <div class="section-leaf">Overview / value proposition</div>
+        <div class="section-leaf">Our 4D process</div>
+        <div class="section-leaf">Our approach (3 pillars)</div>
+        <div class="section-leaf">Tabbed content</div>
+        <div class="section-leaf">Related insights</div>
+        <div class="section-leaf">CTA banner</div>
+        <div class="sub-branch">
+          <div class="page-node">Overview</div>
+          <div class="page-node">Helping Business Owners</div>
+          <div class="page-node">Helping Your People</div>
+          <div class="page-node">Participant Resources</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 · Contact -->
+    <div class="branch c-purple" data-branch>
+      <div class="branch-head" data-head>Contact</div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="page-node">Contact Page</div>
+        <div class="section-leaf">Hero</div>
+        <div class="section-leaf">Office selector tabs</div>
+        <div class="section-leaf">Contact form</div>
+        <div class="section-leaf">Trust bar</div>
+      </div>
+    </div>
+
+    <!-- 9 · Client Login -->
+    <div class="branch c-gray" data-branch>
+      <div class="branch-head" data-head>Client Login</div>
+      <div class="branch-body">
+        <div class="trunk"></div>
+        <div class="external-note">External portal redirect →<br>No on-site page.<br>Styled link/button only, in nav &amp; footer.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+(function () {
+  const svg = document.getElementById('connectorsSvg');
+  const wrap = document.getElementById('treeWrap');
+
+  function drawLines() {
+    const wrapRect = wrap.getBoundingClientRect();
+    svg.setAttribute('width', wrap.scrollWidth);
+    svg.setAttribute('height', wrap.scrollHeight);
+    svg.innerHTML = '';
+
+    const rootBox = document.querySelector('.root-box');
+    const heads = document.querySelectorAll('[data-head]');
+    const rr = rootBox.getBoundingClientRect();
+    const rootCx = rr.left + rr.width / 2 - wrapRect.left;
+    const rootBy = rr.bottom - wrapRect.top;
+
+    if (heads.length === 0) return;
+
+    const firstHead = heads[0].getBoundingClientRect();
+    const lastHead = heads[heads.length - 1].getBoundingClientRect();
+    const headTopY = firstHead.top - wrapRect.top;
+    const midY = rootBy + (headTopY - rootBy) / 2;
+
+    // Root vertical down
+    addLine(svg, rootCx, rootBy, rootCx, midY, '#1b2a41', 2);
+
+    // Horizontal rail
+    const firstCx = firstHead.left + firstHead.width / 2 - wrapRect.left;
+    const lastCx = lastHead.left + lastHead.width / 2 - wrapRect.left;
+    addLine(svg, firstCx, midY, lastCx, midY, '#1b2a41', 2);
+
+    // Drop lines to each branch head
+    heads.forEach(head => {
+      const hr = head.getBoundingClientRect();
+      const hCx = hr.left + hr.width / 2 - wrapRect.left;
+      const hTop = hr.top - wrapRect.top;
+      addLine(svg, hCx, midY, hCx, hTop, getBranchColor(head), 1.8);
+    });
+  }
+
+  function getBranchColor(head) {
+    const branch = head.closest('.branch');
+    if (!branch) return '#1b2a41';
+    const cls = branch.className;
+    if (cls.includes('c-red'))    return '#e06b5e';
+    if (cls.includes('c-orange')) return '#e8a04c';
+    if (cls.includes('c-gold'))   return '#c79a52';
+    if (cls.includes('c-green'))  return '#5da87a';
+    if (cls.includes('c-teal'))   return '#4a9ea8';
+    if (cls.includes('c-blue'))   return '#5b82c7';
+    if (cls.includes('c-navy'))   return '#1b2a41';
+    if (cls.includes('c-purple')) return '#8b6fbf';
+    if (cls.includes('c-gray'))   return '#999';
+    return '#1b2a41';
+  }
+
+  function addLine(parent, x1, y1, x2, y2, color, width) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('stroke', color);
+    line.setAttribute('stroke-width', width);
+    line.setAttribute('stroke-linecap', 'round');
+    parent.appendChild(line);
+  }
+
+  function centerScroll() {
+    const container = document.getElementById('scrollContainer');
+    const content = document.getElementById('treeWrap');
+    const overflow = content.scrollWidth - container.clientWidth;
+    if (overflow > 0) container.scrollLeft = overflow / 2;
+  }
+
+  requestAnimationFrame(() => { drawLines(); centerScroll(); });
+  window.addEventListener('resize', () => { drawLines(); centerScroll(); });
+  document.fonts.ready.then(() => { drawLines(); centerScroll(); });
+})();
+</script>
+<a href="index-hub.html" class="back-btn">← Hub</a>
+<style>.back-btn{position:fixed;bottom:20px;left:20px;z-index:999;text-decoration:none;font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:13px;font-weight:600;color:#fff;background:#1b2a41;padding:8px 16px;border-radius:8px;box-shadow:0 2px 8px rgba(27,42,65,.25);transition:background .15s}.back-btn:hover{background:#c79a52}</style>
+</body>
+</html>

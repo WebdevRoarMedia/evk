@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EVK — Project Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#f4f1ea;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#1b2a41;min-height:100vh;display:flex;align-items:center;justify-content:center}
+
+  .hub{text-align:center;padding:40px 24px}
+  .logo{width:64px;height:64px;border-radius:16px;background:#1b2a41;display:inline-flex;align-items:center;justify-content:center;font-family:'Newsreader',serif;font-size:22px;color:#c79a52;letter-spacing:-.02em}
+  .title{font-family:'Newsreader',serif;font-weight:400;font-size:36px;letter-spacing:-.02em;margin:20px 0 6px}
+  .subtitle{font-size:14px;color:rgba(27,42,65,.5);margin-bottom:40px}
+
+  .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+  .chip{display:inline-flex;align-items:center;gap:10px;text-decoration:none;background:#fffdf9;border:1.5px solid rgba(27,42,65,.14);border-radius:12px;padding:16px 24px;transition:all .18s;box-shadow:0 1px 3px rgba(27,42,65,.04)}
+  .chip:hover{border-color:#c79a52;box-shadow:0 4px 16px rgba(27,42,65,.1);transform:translateY(-2px)}
+  .chip-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+  .chip-icon svg{width:20px;height:20px}
+  .chip-text{text-align:left}
+  .chip-label{font-size:15px;font-weight:600;color:#1b2a41}
+  .chip-desc{font-size:12px;color:rgba(27,42,65,.5);margin-top:3px}
+
+  .chip-nav .chip-icon{background:rgba(27,42,65,.08)}
+  .chip-nav .chip-icon svg{stroke:#1b2a41}
+  .chip-sitemap .chip-icon{background:rgba(199,154,82,.12)}
+  .chip-sitemap .chip-icon svg{stroke:#c79a52}
+  .chip-pages .chip-icon{background:rgba(93,168,122,.1)}
+  .chip-pages .chip-icon svg{stroke:#5da87a}
+  .chip-lofi .chip-icon{background:rgba(27,42,65,.06)}
+  .chip-lofi .chip-icon svg{stroke:#666}
+</style>
+</head>
+<body>
+
+<div class="hub">
+  <div class="logo">EVK</div>
+  <h1 class="title">Project Hub</h1>
+  <p class="subtitle">EVK Wealth Management — deliverables</p>
+
+  <div class="chips">
+    <a href="sitemap.html" class="chip chip-sitemap">
+      <div class="chip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="20" r="2"/><circle cx="19" cy="20" r="2"/><path d="M12 6v2l-7 4"/><path d="M12 8l7 4"/><path d="M5 14v4"/><path d="M19 14v4"/></svg>
+      </div>
+      <div class="chip-text">
+        <div class="chip-label">Visual Sitemap</div>
+        <div class="chip-desc">Tree view of all pages &amp; sections</div>
+      </div>
+    </a>
+
+    <a href="page-sections.html" class="chip chip-pages">
+      <div class="chip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      </div>
+      <div class="chip-text">
+        <div class="chip-label">Page Sections</div>
+        <div class="chip-desc">All pages with their sections</div>
+      </div>
+    </a>
+
+    <a href="navbar-lofi.html" class="chip chip-lofi">
+      <div class="chip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><line x1="7" y1="6" x2="10" y2="6"/><line x1="14" y1="6" x2="17" y2="6"/></svg>
+      </div>
+      <div class="chip-text">
+        <div class="chip-label">Navbar Lo-Fi</div>
+        <div class="chip-desc">Wireframe version — black &amp; grey</div>
+      </div>
+    </a>
+
+    <a href="index.html" class="chip chip-nav">
+      <div class="chip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 3v6"/></svg>
+      </div>
+      <div class="chip-text">
+        <div class="chip-label">Navbar Hi-Fi</div>
+        <div class="chip-desc">Full-color nav with dropdowns</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>
