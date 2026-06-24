@@ -87,20 +87,25 @@
     }
 
     .root-box {
-      background: #1b2a41;
+      background: transparent;
       color: #c79a52;
       font-family: 'Newsreader', serif;
       font-size: 22px;
       font-weight: 500;
       letter-spacing: -.02em;
-      padding: 14px 30px;
+      padding: 12px;
       border-radius: 14px;
       text-align: center;
       line-height: 1.2;
       box-shadow: 0 4px 16px rgba(27, 42, 65, .18)
     }
 
-    .root-box small {
+    .root-box img {
+      width: 100%;
+      max-width: 200px;
+    }
+
+    /* .root-box small {
       display: block;
       font-family: 'Hanken Grotesk', sans-serif;
       font-size: 8px;
@@ -109,7 +114,7 @@
       text-transform: uppercase;
       color: rgba(255, 255, 255, .45);
       margin-top: 4px
-    }
+    } */
 
     .branches {
       display: flex;
@@ -468,7 +473,7 @@
   <div class="sitemap-header">
     <div class="tag">Information Architecture</div>
     <h1>Visual Sitemap</h1>
-    <p>EKF Wealth Management — page tree only</p>
+    <p>EKF Wealth Management</p>
     <div class="legend">
       <span class="legend-item"><span class="legend-swatch solid" style="border-color:#5b82c7"></span>Hub / Primary
         page</span>
@@ -483,7 +488,7 @@
 
       <!-- Root -->
       <div class="root" id="root">
-        <div class="root-box">EKF<small>Wealth Management</small></div>
+        <div class="root-box"><img src="./images/ekf-logo.png" alt="EKF Logo"></div>
       </div>
 
       <!-- Branches -->
@@ -497,16 +502,12 @@
               <div class="trunk"></div>
               <div class="page-node">Homepage</div>
               <div class="section-leaf">Hero</div>
-              <div class="section-leaf">Trust bar / By the numbers</div>
-              <div class="section-leaf">Services overview</div>
-              <div class="section-leaf">Why Evensky / Differentiators</div>
-              <div class="section-leaf">Our story teaser</div>
-              <div class="section-leaf">Team teaser</div>
-              <div class="section-leaf">Insights teaser</div>
-              <div class="section-leaf">Testimonials / Press</div>
-              <div class="section-leaf">Community impact callout</div>
-              <div class="section-leaf">Newsletter signup</div>
-              <div class="section-leaf">Contact / CTA banner</div>
+              <div class="section-leaf">Is-A Statement</div>
+              <div class="section-leaf">Trust Bar / By the Numbers</div>
+              <div class="section-leaf">Services preview</div>
+              <div class="section-leaf">Team preview</div>
+              <div class="section-leaf">Our Approach/Fee-Only Fiduciary</div>
+              <div class="section-leaf">Contact</div>
               <div class="section-leaf">Footer</div>
             </div>
           </div>
@@ -593,8 +594,7 @@
           <div class="branch-body">
             <div class="main-stack">
               <div class="trunk"></div>
-              <div class="external-note">External portal redirect →<br>No on-site page.<br>Styled link/button only, in
-                nav &amp; footer.</div>
+              <div class="external-note">[page] Evensky Portal<br>[page] Vanguard 401K</div>
             </div>
           </div>
         </div>

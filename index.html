@@ -33,17 +33,17 @@
     }
 
     .logo {
-      width: 64px;
-      height: 64px;
       border-radius: 16px;
-      background: #1b2a41;
+      background: transparent;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Newsreader', serif;
-      font-size: 22px;
-      color: #c79a52;
-      letter-spacing: -.02em
+    }
+
+    .logo img {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 16px;
     }
 
     .title {
@@ -162,7 +162,7 @@
 <body>
 
   <div class="hub">
-    <div class="logo">EKF</div>
+    <div class="logo"><img src="./images/ekf-logo.png" alt="EKF Logo"></div>
     <h1 class="title">Project Hub</h1>
     <p class="subtitle">EKF Wealth Management — deliverables</p>
 
